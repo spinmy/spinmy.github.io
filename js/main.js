@@ -8,16 +8,16 @@ var gameOptions = {
 
     // prize names, starting from 12 o'clock going clockwise
     slicePrizes: [
-        "🎉 5% OFF",
-        "🎉 10% OFF",
-        "🎉 15% OFF",
-        "🎉 25% OFF",
-        "🎉 50% OFF",
-        "🎉 FREE PASTRY 🍰"
+        "🎉 ₹10 OFF ON NEXT PURCHASE",
+        "🎉 ₹100 OFF ON NEXT PURCHASE",
+        "🎉 ₹500 OFF ON NEXT PURCHASE",
+        "🎉 ₹1000 OFF ON NEXT PURCHASE",
+        "🎉 ₹10000 OFF ON NEXT PURCHASE",
+        "🎉 ₹50000 CASH PRIZE !!!!!"
     ],
 
     // wheel rotation duration, in milliseconds
-    rotationTime: 3000
+    rotationTime: 6000
 }
 
 // once the window loads...
