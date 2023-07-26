@@ -45,7 +45,8 @@ class playGame extends Phaser.Scene {
     }
     create() {
         this.wheel = this.add.sprite(game.config.width / 2, game.config.height / 2, "wheel");
-        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2 - this.wheel.height / 2 + 20, "pin"); // Adjusted pin position to center of slice 1
+        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2, "pin"); // Place the pin at the center of the wheel
+        this.pin.setOrigin(0.5); // Set the pin's anchor point to the center
         this.prizeText = this.add.text(game.config.width / 2, game.config.height - 35, "SPIN TO WIN", {
             font: "bold 45px Rajdhani",
             align: "center",
