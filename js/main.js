@@ -2,7 +2,6 @@ var game;
 var gameOptions = {
     slices: 12,
     slicePrizes: [
-        "🎉 YOU WON 10 Rs",
         "🎉 YOU WON 2,00,000 Rs",
         "🎉 YOU WON 1,00,000 Rs",
         "🎉 YOU WON 50,000 Rs",
@@ -13,7 +12,8 @@ var gameOptions = {
         "🎉 YOU WON 500 Rs",
         "🎉 YOU WON 100 Rs",
         "🎉 YOU WON 50 Rs",
-        "🎉 YOU WON 20 Rs"
+        "🎉 YOU WON 20 Rs",
+        "🎉 YOU WON 10 Rs"
     ],
     rotationTimeRange: {
         min: 7000,
