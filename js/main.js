@@ -1,6 +1,6 @@
 var game;
 var gameOptions = {
-    slices: 6,
+    slices: 12,
     slicePrizes: [
         "🎉 CASH OFF ON NEXT PURCHASE",
         "🎉 GIFT CARD",
@@ -9,7 +9,7 @@ var gameOptions = {
         "🎉 TRY AGAIN",
         "🎉 10% OFF"
     ],
-    rotationTime: 6000
+    rotationTime: 7000
 };
 
 window.onload = function () {
