@@ -10,10 +10,10 @@ var gameOptions = {
         "🎉 YOU WON 1000 Rs",
         "🎉 YOU WON 2000 Rs",
         "🎉 YOU WON 5000 Rs",
-        "🎉 YOU WON 10000 Rs",
-        "🎉 YOU WON 50000 Rs",
-        "🎉 YOU WON 100000 Rs",
-        "🎉 YOU WON 200000 Rs"
+        "🎉 YOU WON 10,000 Rs",
+        "🎉 YOU WON 50,000 Rs",
+        "🎉 YOU WON 1,00,000 Rs",
+        "🎉 YOU WON 2,00,000 Rs"
     ],
     rotationTimeRange: {
         min: 7000,
