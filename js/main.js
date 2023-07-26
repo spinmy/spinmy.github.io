@@ -3,14 +3,14 @@ var gameOptions = {
     slices: 12,
     slicePrizes: [
         "🎉 YOU WON 10 Rs",
+        "🎉 YOU WON 20 Rs",
+        "🎉 YOU WON 50 Rs",
         "🎉 YOU WON 100 Rs",
-        "🎉 YOU WON 200 Rs",
         "🎉 YOU WON 500 Rs",
         "🎉 YOU WON 1000 Rs",
         "🎉 YOU WON 2000 Rs",
-        "🎉 YOU WON 4000 Rs",
+        "🎉 YOU WON 5000 Rs",
         "🎉 YOU WON 10000 Rs",
-        "🎉 YOU WON 20000 Rs",
         "🎉 YOU WON 50000 Rs",
         "🎉 YOU WON 100000 Rs",
         "🎉 YOU WON 200000 Rs"
@@ -45,7 +45,7 @@ class playGame extends Phaser.Scene {
     }
     create() {
         this.wheel = this.add.sprite(game.config.width / 2, game.config.height / 2, "wheel");
-        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2, "pin");
+        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2 - this.wheel.height / 2 + 20, "pin"); // Adjusted pin position to center of slice 1
         this.prizeText = this.add.text(game.config.width / 2, game.config.height - 35, "SPIN TO WIN", {
             font: "bold 45px Rajdhani",
             align: "center",
@@ -64,9 +64,10 @@ class playGame extends Phaser.Scene {
             var prize = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
             this.canSpin = false;
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
+            var extra_degrees = 5 * 360; // Add extra degrees to ensure that the wheel stops at the center of a slice
             this.tweens.add({
                 targets: [this.wheel],
-                angle: 360 * rounds + degrees,
+                angle: totalDegrees + extra_degrees, // Ensure the wheel stops at the center of a slice
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
