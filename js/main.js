@@ -2,14 +2,23 @@ var game;
 var gameOptions = {
     slices: 12,
     slicePrizes: [
-        "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 GIFT CARD",
-        "🎉 50% OFF",
-        "🎉 20% OFF",
-        "🎉 TRY AGAIN",
-        "🎉 10% OFF"
+        "🎉 YOU WON 10 Rs",
+        "🎉 YOU WON 100 Rs",
+        "🎉 YOU WON 200 Rs",
+        "🎉 YOU WON 500 Rs",
+        "🎉 YOU WON 1000 Rs",
+        "🎉 YOU WON 2000 Rs",
+        "🎉 YOU WON 4000 Rs",
+        "🎉 YOU WON 10000 Rs",
+        "🎉 YOU WON 20000 Rs",
+        "🎉 YOU WON 50000 Rs",
+        "🎉 YOU WON 100000 Rs",
+        "🎉 YOU WON 200000 Rs"
     ],
-    rotationTime: 7000
+    rotationTimeRange: {
+        min: 5000,
+        max: 10000
+    }
 };
 
 window.onload = function () {
@@ -54,10 +63,11 @@ class playGame extends Phaser.Scene {
             var totalDegrees = 360 * rounds + degrees;
             var prize = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
             this.canSpin = false;
+            var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
             this.tweens.add({
                 targets: [this.wheel],
                 angle: 360 * rounds + degrees,
-                duration: gameOptions.rotationTime,
+                duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
