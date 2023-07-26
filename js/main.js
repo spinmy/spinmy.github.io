@@ -20,7 +20,6 @@ var gameOptions = {
         max: 13000
     }
 };
-
 window.onload = function () {
     var gameConfig = {
         type: Phaser.CANVAS,
@@ -34,7 +33,6 @@ window.onload = function () {
     resize();
     window.addEventListener("resize", resize, false);
 };
-
 class playGame extends Phaser.Scene {
     constructor() {
         super("PlayGame");
@@ -45,8 +43,8 @@ class playGame extends Phaser.Scene {
     }
     create() {
         this.wheel = this.add.sprite(game.config.width / 2, game.config.height / 2, "wheel");
-        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2, "pin"); // Place the pin at the center of the wheel
-        this.pin.setOrigin(0.5); // Set the pin's anchor point to the center
+        this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2, "pin");
+        this.pin.setOrigin(0.5);
         this.prizeText = this.add.text(game.config.width / 2, game.config.height - 35, "SPIN TO WIN", {
             font: "bold 45px Rajdhani",
             align: "center",
@@ -60,22 +58,27 @@ class playGame extends Phaser.Scene {
         if (this.canSpin) {
             this.prizeText.setText("");
             document.getElementById("pyro").style.display = "none";
+
+            var targetSlice = Phaser.Math.Between(0, gameOptions.slices - 1);
+    
             var rounds = Phaser.Math.Between(4, 6);
-            var degrees = Phaser.Math.Between(0, 360 / gameOptions.slices); // Ensure the pin points to the center of a slice
+            var degrees = Phaser.Math.Between(0, 360 / gameOptions.slices);
             var totalDegrees = 360 * rounds + degrees;
-            var prizeSlice = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
+            var sliceOffset = (360 / gameOptions.slices) / 2;
+            var extraDegrees = sliceOffset + (360 / gameOptions.slices) * targetSlice;
+            totalDegrees += extraDegrees;
+    
             this.canSpin = false;
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-            var extra_degrees = 5 * 360; // Add extra degrees to ensure that the wheel stops at the center of a slice
+    
             this.tweens.add({
                 targets: [this.wheel],
-                angle: totalDegrees + extra_degrees, // Ensure the wheel stops at the center of a slice
+                angle: totalDegrees,
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
-                    // Calculate the prize based on the landed slice
-                    var prize = gameOptions.slicePrizes[prizeSlice];
+                    var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText(prize);
                     this.canSpin = true;
                     document.getElementById("pyro").style.display = "block";
@@ -83,8 +86,8 @@ class playGame extends Phaser.Scene {
             });
         }
     }
+    
 }
-
 function resize() {
     var canvas = document.querySelector("canvas");
     var windowWidth = window.innerWidth;
