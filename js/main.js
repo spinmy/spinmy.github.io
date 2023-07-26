@@ -60,7 +60,7 @@ class playGame extends Phaser.Scene {
         if (this.canSpin) {
             this.prizeText.setText("");
             var rounds = Phaser.Math.Between(4, 6);
-            var degrees = Phaser.Math.Between(0, 360);
+            var degrees = Phaser.Math.Between(0, 360 / gameOptions.slices); // Ensure the pin points to the center of a slice
             var totalDegrees = 360 * rounds + degrees;
             var prizeSlice = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
             this.canSpin = false;
