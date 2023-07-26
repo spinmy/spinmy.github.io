@@ -26,7 +26,7 @@ var game;
                 type: Phaser.CANVAS,
                 width: 850,
                 height: 850,
-                backgroundColor: 0x880044,
+                backgroundColor: 0xffffff,
                 scene: [playGame]
             };
             game = new Phaser.Game(gameConfig);
