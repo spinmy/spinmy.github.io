@@ -62,7 +62,7 @@ class playGame extends Phaser.Scene {
             var rounds = Phaser.Math.Between(4, 6);
             var degrees = Phaser.Math.Between(0, 360);
             var totalDegrees = 360 * rounds + degrees;
-            var prize = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
+            var prizeSlice = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
             this.canSpin = false;
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
             var extra_degrees = 5 * 360; // Add extra degrees to ensure that the wheel stops at the center of a slice
@@ -73,7 +73,9 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
-                    this.prizeText.setText(gameOptions.slicePrizes[prize]);
+                    // Calculate the prize based on the landed slice
+                    var prize = gameOptions.slicePrizes[prizeSlice];
+                    this.prizeText.setText(prize);
                     this.canSpin = true;
                 }
             });
