@@ -16,8 +16,8 @@ var gameOptions = {
         "🎉 YOU WON 200000 Rs"
     ],
     rotationTimeRange: {
-        min: 5000,
-        max: 10000
+        min: 7000,
+        max: 13000
     }
 };
 
@@ -26,7 +26,7 @@ window.onload = function () {
         type: Phaser.CANVAS,
         width: 850,
         height: 850,
-        backgroundColor: 0x880044,
+        backgroundColor: 0xffffff,
         scene: [playGame]
     };
     game = new Phaser.Game(gameConfig);
@@ -49,7 +49,7 @@ class playGame extends Phaser.Scene {
         this.prizeText = this.add.text(game.config.width / 2, game.config.height - 35, "SPIN TO WIN", {
             font: "bold 45px Rajdhani",
             align: "center",
-            color: "white"
+            color: "green"
         });
         this.prizeText.setOrigin(0.5);
         this.canSpin = true;
