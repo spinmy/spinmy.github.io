@@ -3,11 +3,11 @@ var gameOptions = {
     slices: 6,
     slicePrizes: [
         "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 CASH OFF ON NEXT PURCHASE",
-        "🎉 CASH OFF ON NEXT PURCHASE"
+        "🎉 GIFT CARD",
+        "🎉 50% OFF",
+        "🎉 20% OFF",
+        "🎉 TRY AGAIN",
+        "🎉 10% OFF"
     ],
     rotationTime: 6000
 };
@@ -30,12 +30,10 @@ class playGame extends Phaser.Scene {
     constructor() {
         super("PlayGame");
     }
-
     preload() {
-        this.load.image("wheel", "images/wheel.png"); // Removed window.location.href
-        this.load.image("pin", "images/pin.png"); // Removed window.location.href
+        this.load.image("wheel", "images/wheel.png");
+        this.load.image("pin", "images/pin.png");
     }
-
     create() {
         this.wheel = this.add.sprite(game.config.width / 2, game.config.height / 2, "wheel");
         this.pin = this.add.sprite(game.config.width / 2, game.config.height / 2, "pin");
@@ -48,25 +46,22 @@ class playGame extends Phaser.Scene {
         this.canSpin = true;
         this.input.on("pointerdown", this.spinWheel, this);
     }
-
     spinWheel() {
         if (this.canSpin) {
             this.prizeText.setText("");
             var rounds = Phaser.Math.Between(4, 6);
-            var degrees = 360 / gameOptions.slices; // Calculate the degrees per slice
-            var extraDegrees = Phaser.Math.Between(0, degrees - 1); // Get a random extra degree within a slice
-            var totalDegrees = 360 * rounds + extraDegrees; // Calculate the total degrees to rotate
-
+            var degrees = Phaser.Math.Between(0, 360);
+            var totalDegrees = 360 * rounds + degrees;
+            var prize = gameOptions.slices - 1 - Math.floor((totalDegrees % 360) / (360 / gameOptions.slices));
             this.canSpin = false;
             this.tweens.add({
                 targets: [this.wheel],
-                angle: totalDegrees,
+                angle: 360 * rounds + degrees,
                 duration: gameOptions.rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
-                    var prizeIndex = gameOptions.slices - 1 - Math.floor(totalDegrees / degrees);
-                    this.prizeText.setText(gameOptions.slicePrizes[prizeIndex]);
+                    this.prizeText.setText(gameOptions.slicePrizes[prize]);
                     this.canSpin = true;
                 }
             });
