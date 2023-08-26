@@ -78,7 +78,7 @@ class playGame extends Phaser.Scene {
             setTimeout(() => {
                 var victorySound = document.getElementById("victorySound");
                 victorySound.play();
-            }, rotationTime - 2000);
+            }, rotationTime - 4000);
 
             this.canSpin = false;
 
