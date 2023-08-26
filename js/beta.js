@@ -20,7 +20,7 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5];
+var fixedOutcomes = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 12, 11];
 var currentOutcomeIndex = 0;
 
 window.onload = function () {
@@ -63,7 +63,7 @@ class playGame extends Phaser.Scene {
     spinWheel() {
         if (this.canSpin) {
             this.prizeText.setText("");
-            document.getElementById("pyro").style.display = "none";
+            //document.getElementById("pyro").style.display = "none";
     
             var randomSpinCount = Phaser.Math.Between(10, 20);
             var totalDegrees = randomSpinCount * 360;
@@ -74,7 +74,7 @@ class playGame extends Phaser.Scene {
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
     
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-            var randomExtraTime = Phaser.Math.Between(0, 1000);
+            var randomExtraTime = Phaser.Math.Between(0, 100);
             rotationTime += randomExtraTime;
     
             this.canSpin = false;
