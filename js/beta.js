@@ -20,7 +20,7 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [500, 1000, 20, 10, 50000];
+var fixedOutcomes = [10, 10, 10, 10, 20, 10, 10, 10, 10, 20, 50, 100 , 500, 1000, 2000, 5000, 10000, 50000, 100000, 200000];
 var currentOutcomeIndex = 0;
 
 window.onload = function () {
