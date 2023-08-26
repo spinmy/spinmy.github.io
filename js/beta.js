@@ -2,25 +2,25 @@ var game;
 var gameOptions = {
     slices: 12,
     slicePrizes: [
-        "🎉 YOU WON 2,00,000 Rs",
-        "🎉 YOU WON 1,00,000 Rs",
-        "🎉 YOU WON 50,000 Rs",
-        "🎉 YOU WON 10,000 Rs",
-        "🎉 YOU WON 5000 Rs",
-        "🎉 YOU WON 2000 Rs",
-        "🎉 YOU WON 1000 Rs",
-        "🎉 YOU WON 500 Rs",
-        "🎉 YOU WON 100 Rs",
-        "🎉 YOU WON 50 Rs",
-        "🎉 YOU WON 20 Rs",
-        "🎉 YOU WON 10 Rs"
+        "10",
+        "200000",
+        "100000",
+        "50000",
+        "10000",
+        "5000",
+        "2000",
+        "1000",
+        "500",
+        "100",
+        "50",
+        "20"
     ],
     rotationTimeRange: {
         min: 7000,
         max: 13000
     }
 };
-var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5]; // Set the order of fixed outcomes
+var fixedOutcomes = [500, 1000, 20, 10, 50000];
 var currentOutcomeIndex = 0;
 
 window.onload = function () {
@@ -63,22 +63,20 @@ class playGame extends Phaser.Scene {
     spinWheel() {
         if (this.canSpin) {
             this.prizeText.setText("");
-            document.getElementById("pyro").style.display = "none";
-    
-            var randomSpinCount = Phaser.Math.Between(10, 20); // Spin multiple times before stopping
+            var randomSpinCount = Phaser.Math.Between(10, 20);
             var totalDegrees = randomSpinCount * 360;
-    
-            var spinOutcome = fixedOutcomes[currentOutcomeIndex]; // Get the current fixed outcome
-            var targetSlice = (spinOutcome + randomSpinCount) % gameOptions.slices;
-    
+
+            var spinOutcome = fixedOutcomes[currentOutcomeIndex];
+            var targetSlice = gameOptions.slicePrizes.indexOf(spinOutcome.toString());
+
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
-    
+
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
             var randomExtraTime = Phaser.Math.Between(0, 1000);
             rotationTime += randomExtraTime;
-    
+
             this.canSpin = false;
-    
+
             this.tweens.add({
                 targets: [this.wheel],
                 angle: totalDegrees + (360 / gameOptions.slices) * targetSlice,
@@ -94,7 +92,6 @@ class playGame extends Phaser.Scene {
             });
         }
     }
-    
 }
 
 function resize() {
