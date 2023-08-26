@@ -20,7 +20,7 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 10];
+var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5]; // Set the order of fixed outcomes
 var currentOutcomeIndex = 0;
 
 window.onload = function () {
@@ -63,12 +63,12 @@ class playGame extends Phaser.Scene {
     spinWheel() {
         if (this.canSpin) {
             this.prizeText.setText("");
-            //document.getElementById("pyro").style.display = "none";
+            document.getElementById("pyro").style.display = "none";
     
-            var randomSpinCount = Phaser.Math.Between(10, 20);
+            var randomSpinCount = Phaser.Math.Between(10, 20); // Spin multiple times before stopping
             var totalDegrees = randomSpinCount * 360;
     
-            var spinOutcome = fixedOutcomes[currentOutcomeIndex];
+            var spinOutcome = fixedOutcomes[currentOutcomeIndex]; // Get the current fixed outcome
             var targetSlice = (spinOutcome + randomSpinCount) % gameOptions.slices;
     
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
@@ -94,6 +94,7 @@ class playGame extends Phaser.Scene {
             });
         }
     }
+    
 }
 
 function resize() {
