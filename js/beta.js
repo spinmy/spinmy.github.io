@@ -84,11 +84,7 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onStart: function () {
-                    setTimeout(() => {
-                        // Play the "ring.mp3" sound 2 seconds before the spin stops
-                        var audio = new Audio("css/ring.mp3");
-                        audio.play();
-                    }, rotationTime - 2000); // Play sound 2 seconds before rotation completes
+                    this.playAudioAfterDelay("css/ring.mp3", rotationTime - 2000);
                 },
                 onComplete: function (tween) {
                     
@@ -99,6 +95,12 @@ class playGame extends Phaser.Scene {
                 }
             });
         }
+    }
+    playAudioAfterDelay(audioPath, delay) {
+        setTimeout(() => {
+            var audio = new Audio(audioPath);
+            audio.play();
+        }, delay);
     }
 }
 
