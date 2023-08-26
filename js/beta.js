@@ -72,7 +72,7 @@ class playGame extends Phaser.Scene {
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
 
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-            var randomExtraTime = Phaser.Math.Between(0, 100);
+            var randomExtraTime = Phaser.Math.Between(0, 10);
             rotationTime += randomExtraTime;
 
             this.canSpin = false;
