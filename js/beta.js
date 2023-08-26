@@ -81,7 +81,7 @@ class playGame extends Phaser.Scene {
                 targets: [this.wheel],
                 angle: totalDegrees + (360 / gameOptions.slices) * targetSlice,
                 duration: rotationTime,
-                ease: "Cubic.easeOut",
+                ease: "Cubic.easeInOut",
                 callbackScope: this,
                 onStart: function () {
                     this.playAudioAfterDelay("css/ring.mp3", rotationTime - 5000);
