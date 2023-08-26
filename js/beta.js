@@ -83,11 +83,15 @@ class playGame extends Phaser.Scene {
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
-                onComplete: function (tween) {
+                onStart: function () {
                     setTimeout(() => {
-                        var victorySound = document.getElementById("victorySound");
-                        victorySound.play();
-                    }, rotationTime - 2000);
+                        // Play the "ring.mp3" sound 2 seconds before the spin stops
+                        var audio = new Audio("css/ring.mp3");
+                        audio.play();
+                    }, rotationTime - 2000); // Play sound 2 seconds before rotation completes
+                },
+                onComplete: function (tween) {
+                    
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
