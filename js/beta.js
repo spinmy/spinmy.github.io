@@ -84,7 +84,7 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onStart: function () {
-                    this.playAudioAfterDelay("css/ring.mp3", rotationTime - 2000);
+                    this.playAudioAfterDelay("css/ring.mp3", rotationTime - 4000);
                 },
                 onComplete: function (tween) {
                     
