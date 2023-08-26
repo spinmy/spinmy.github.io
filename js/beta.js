@@ -2,7 +2,6 @@ var game;
 var gameOptions = {
     slices: 12,
     slicePrizes: [
-        "🎉 YOU WON 10 Rs",
         "🎉 YOU WON 2,00,000 Rs",
         "🎉 YOU WON 1,00,000 Rs",
         "🎉 YOU WON 50,000 Rs",
@@ -13,7 +12,8 @@ var gameOptions = {
         "🎉 YOU WON 500 Rs",
         "🎉 YOU WON 100 Rs",
         "🎉 YOU WON 50 Rs",
-        "🎉 YOU WON 20 Rs"
+        "🎉 YOU WON 20 Rs",
+        "🎉 YOU WON 10 Rs"
     ],
     rotationTimeRange: {
         min: 7000,
@@ -67,20 +67,22 @@ class playGame extends Phaser.Scene {
 
             var targetSlice = fixedOutcomes[currentOutcomeIndex]; // Get the next fixed outcome
 
+            var randomSpinCount = Phaser.Math.Between(10, 20); // Spin multiple times before stopping
+            var totalDegrees = randomSpinCount * 360 + (360 / gameOptions.slices) * targetSlice;
+
             currentOutcomeIndex = (currentOutcomeIndex + 1) % gameOptions.slices;
 
-            var totalDegrees = (360 / gameOptions.slices) * targetSlice;
-
-            this.canSpin = false;
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
 
             // Add some randomness to the rotation duration
             var randomExtraTime = Phaser.Math.Between(0, 1000);
             rotationTime += randomExtraTime;
 
+            this.canSpin = false;
+
             this.tweens.add({
                 targets: [this.wheel],
-                angle: 360 * 5 + totalDegrees, // Spin multiple times before stopping
+                angle: totalDegrees,
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
