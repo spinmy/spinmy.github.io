@@ -20,8 +20,8 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5]; // Set the order of fixed outcomes
-var currentOutcomeIndex = 0; // Initialize the index of the current outcome
+var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5];
+var currentOutcomeIndex = 0;
 
 window.onload = function () {
     var gameConfig = {
@@ -64,33 +64,32 @@ class playGame extends Phaser.Scene {
         if (this.canSpin) {
             this.prizeText.setText("");
             document.getElementById("pyro").style.display = "none";
-
-            var targetSlice = fixedOutcomes[currentOutcomeIndex]; // Get the next fixed outcome
-
-            var randomSpinCount = Phaser.Math.Between(10, 20); // Spin multiple times before stopping
-            var totalDegrees = randomSpinCount * 360 + (360 / gameOptions.slices) * targetSlice;
-
-            currentOutcomeIndex = (currentOutcomeIndex + 1) % gameOptions.slices;
-
+    
+            var randomSpinCount = Phaser.Math.Between(10, 20);
+            var totalDegrees = randomSpinCount * 360;
+    
+            var spinOutcome = fixedOutcomes[currentOutcomeIndex];
+            var targetSlice = (spinOutcome + randomSpinCount) % gameOptions.slices;
+    
+            currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
+    
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-
-            // Add some randomness to the rotation duration
             var randomExtraTime = Phaser.Math.Between(0, 1000);
             rotationTime += randomExtraTime;
-
+    
             this.canSpin = false;
-
+    
             this.tweens.add({
                 targets: [this.wheel],
-                angle: totalDegrees,
+                angle: totalDegrees + (360 / gameOptions.slices) * targetSlice,
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
+                    document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText(prize);
                     this.canSpin = true;
-                    document.getElementById("pyro").style.display = "block";
                 }
             });
         }
