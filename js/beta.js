@@ -63,7 +63,7 @@ class playGame extends Phaser.Scene {
     spinWheel() {
         if (this.canSpin) {
             this.prizeText.setText("");
-            var randomSpinCount = Phaser.Math.Between(10, 20);
+            var randomSpinCount = Phaser.Math.Between(2, 10);
             var totalDegrees = randomSpinCount * 360;
 
             var spinOutcome = fixedOutcomes[currentOutcomeIndex];
@@ -72,7 +72,7 @@ class playGame extends Phaser.Scene {
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
 
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-            var randomExtraTime = Phaser.Math.Between(0, 1);
+            var randomExtraTime = Phaser.Math.Between(0, 10);
             rotationTime += randomExtraTime;
 
             this.canSpin = false;
