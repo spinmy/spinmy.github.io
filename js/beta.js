@@ -86,7 +86,7 @@ class playGame extends Phaser.Scene {
                 onComplete: function (tween) {
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
-                    this.prizeText.setText(prize);
+                    this.prizeText.setText("$ " + prize + " JACKPOT!!!");
                     this.canSpin = true;
                 }
             });
