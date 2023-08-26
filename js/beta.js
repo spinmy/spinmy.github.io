@@ -38,7 +38,6 @@ window.onload = function () {
     window.addEventListener("resize", resize, false);
 };
 
-
 class playGame extends Phaser.Scene {
     constructor() {
         super("PlayGame");
@@ -70,14 +69,18 @@ class playGame extends Phaser.Scene {
 
             currentOutcomeIndex = (currentOutcomeIndex + 1) % gameOptions.slices;
 
-           var totalDegrees = (360 / gameOptions.slices) * targetSlice;
+            var totalDegrees = (360 / gameOptions.slices) * targetSlice;
 
             this.canSpin = false;
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
 
+            // Add some randomness to the rotation duration
+            var randomExtraTime = Phaser.Math.Between(0, 1000);
+            rotationTime += randomExtraTime;
+
             this.tweens.add({
                 targets: [this.wheel],
-                angle: totalDegrees,
+                angle: 360 * 5 + totalDegrees, // Spin multiple times before stopping
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
@@ -91,6 +94,7 @@ class playGame extends Phaser.Scene {
         }
     }
 }
+
 function resize() {
     var canvas = document.querySelector("canvas");
     var windowWidth = window.innerWidth;
