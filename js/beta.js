@@ -72,7 +72,7 @@ class playGame extends Phaser.Scene {
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
 
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
-            var randomExtraTime = Phaser.Math.Between(0, 10);
+            var randomExtraTime = Phaser.Math.Between(0, 1);
             rotationTime += randomExtraTime;
 
             this.canSpin = false;
@@ -81,7 +81,7 @@ class playGame extends Phaser.Scene {
                 targets: [this.wheel],
                 angle: totalDegrees + (360 / gameOptions.slices) * targetSlice,
                 duration: rotationTime,
-                ease: "Cubic.easeInOut",
+                ease: "Cubic.easeOut",
                 callbackScope: this,
                 onStart: function () {
                     this.playAudioAfterDelay("css/ring.mp3", rotationTime - 5000);
