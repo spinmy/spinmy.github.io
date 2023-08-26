@@ -74,11 +74,6 @@ class playGame extends Phaser.Scene {
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
             var randomExtraTime = Phaser.Math.Between(0, 10);
             rotationTime += randomExtraTime;
-            
-            setTimeout(() => {
-                var victorySound = document.getElementById("victorySound");
-                victorySound.play();
-            }, rotationTime - 4000);
 
             this.canSpin = false;
 
@@ -89,6 +84,10 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
+                    setTimeout(() => {
+                        var victorySound = document.getElementById("victorySound");
+                        victorySound.play();
+                    }, rotationTime - 2000);
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
