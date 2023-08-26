@@ -20,7 +20,7 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [2, 3, 8, 11, 6, 4, 0, 9, 1, 7, 10, 5]; // Set the order of fixed outcomes
+var fixedOutcomes = [12, 7, 2, 8, 3, 9, 11, 6, 1, 5]; // Set the order of fixed outcomes
 var currentOutcomeIndex = 0; // Initialize the index of the current outcome
 
 window.onload = function () {
