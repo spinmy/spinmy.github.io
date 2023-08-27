@@ -25,21 +25,21 @@ let fixedOutcomes = [];
 let currentOutcomeIndex;
 
 fetch('js/outcomes.json')
-  .then(response => response.json())
-  .then(data => {
+.then(response => response.json())
+.then(data => {
     fixedOutcomes = data;
     if (localStorage.getItem('spin') !== null) {
-      currentOutcomeIndex = parseInt(localStorage.getItem('spin'));
-      console.log('SPIN NUMBER: ', currentOutcomeIndex);
-      document.title = `JACKPOT: Spin # ${currentOutcomeIndex}`;
+        currentOutcomeIndex = parseInt(localStorage.getItem('spin'));
+        console.log('SPIN NUMBER: ', currentOutcomeIndex);
+        document.title = `JACKPOT: SPIN # ${currentOutcomeIndex}`;
     } else {
-      currentOutcomeIndex = 0;
-      localStorage.setItem('spin', currentOutcomeIndex.toString());
+        currentOutcomeIndex = 0;
+        localStorage.setItem('spin', currentOutcomeIndex.toString());
     }
-  })
-  .catch(error => {
+})
+.catch(error => {
     console.error('Error loading outcomes:', error);
-  });
+});
 
 window.onload = function () {
     var gameConfig = {
@@ -49,7 +49,6 @@ window.onload = function () {
         backgroundColor: 0xffffff,
         scene: [playGame]
     };
-
     game = new Phaser.Game(gameConfig);
     window.focus();
     resize();
@@ -85,17 +84,12 @@ class playGame extends Phaser.Scene {
             this.prizeText.setText("");
             var randomSpinCount = Phaser.Math.Between(2, 10);
             var totalDegrees = randomSpinCount * 360;
-
             var spinOutcome = fixedOutcomes[currentOutcomeIndex];
-
             var targetSlice = gameOptions.slicePrizes.indexOf(spinOutcome.toString());
-
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
-
             var rotationTime = Phaser.Math.Between(gameOptions.rotationTimeRange.min, gameOptions.rotationTimeRange.max);
             var randomExtraTime = Phaser.Math.Between(0, 10);
             rotationTime += randomExtraTime;
-
             this.canSpin = false;
 
             this.tweens.add({
@@ -105,10 +99,9 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
-
                     console.log('SPIN NUMBER: ', currentOutcomeIndex);
                     localStorage.setItem('spin', currentOutcomeIndex);
-                    document.title = `JACKPOT: Spin # ${currentOutcomeIndex}`;
+                    document.title = `JACKPOT: SPIN # ${currentOutcomeIndex}`;
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");

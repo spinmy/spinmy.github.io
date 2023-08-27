@@ -1,19 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JACKPOT: Spin 2 Win</title>
+    <title>JACKPOT VERIFY</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link type="image/png" sizes="96x96" rel="icon" href="images/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/phaser.min.js"></script>
-    <script src="js/beta.js"></script>
-    
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="pyro" style="display: none;" class="pyro">
-        <div class="before"></div>
-        <div class="after"></div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="numberInput">Enter Spin Number:</label>
+                <input type="number" id="numberInput" class="form-control">
+                <button class="btn btn-success mt-2" id="submitBtn">CHECK</button>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SPIN No:</th>
+                            <th>JACKPOT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataRows">
+                        <!-- Data will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const index = document.getElementById('numberInput').value;
+            
+            // Add your fetch logic here
+            fetch('js/outcomes.json')
+                .then(response => response.json())
+                .then(data => {
+                    const outcomes = data;
+                    const lastIndex = outcomes.length - 1;
+                    const startIndex = Math.max(0, lastIndex - 10);
+                    const endIndex = Math.min(lastIndex, startIndex + 50);
+
+                    const dataRows = document.getElementById('dataRows');
+                    dataRows.innerHTML = ''; // Clear existing data
+
+                    for (let i = startIndex; i <= endIndex; i++) {
+                        const row = document.createElement('tr');
+                        const indexCell = document.createElement('td');
+                        const valueCell = document.createElement('td');
+
+                        indexCell.textContent = i;
+                        valueCell.textContent = outcomes[i];
+
+                        row.appendChild(indexCell);
+                        row.appendChild(valueCell);
+
+                        dataRows.appendChild(row);
+                    }
+                });
+        });
+    </script>
+
+    <!-- Add Bootstrap JS and jQuery scripts here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
