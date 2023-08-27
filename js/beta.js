@@ -21,11 +21,13 @@ var gameOptions = {
     }
 };
 
+let fixedOutcomes = [];
+let currentOutcomeIndex;
+
 fetch('js/outcomes.json')
   .then(response => response.json())
   .then(data => {
-    const fixedOutcomes = data;
-    const totalOutcomes = fixedOutcomes.length;
+    fixedOutcomes = data;
     if (localStorage.getItem('spin') !== null) {
       currentOutcomeIndex = parseInt(localStorage.getItem('spin'));
       console.log('SPIN NUMBER: ', currentOutcomeIndex);
@@ -84,6 +86,7 @@ class playGame extends Phaser.Scene {
             var totalDegrees = randomSpinCount * 360;
 
             var spinOutcome = fixedOutcomes[currentOutcomeIndex];
+
             var targetSlice = gameOptions.slicePrizes.indexOf(spinOutcome.toString());
 
             currentOutcomeIndex = (currentOutcomeIndex + 1) % fixedOutcomes.length;
