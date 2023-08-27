@@ -14,12 +14,12 @@
         }
         .yellow-table {
             background-color: #ff0;
-            font-size: 25px;
+            font-size: 24px;
             font-weight: bold;
         }
         .green-table {
             background-color: #11d711;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: bold;
         }
     </style>
@@ -32,6 +32,7 @@
                 <input type="number" id="numberInput" class="form-control">
                 <button class="btn btn-success mt-2" id="submitBtn">CHECK JACKPOT</button>
             </div>
+
         </div>
         <div class="row mt-4">
             <div class="col-md-12">
@@ -60,7 +61,7 @@
                 .then(data => {
                     const outcomes = data;
                     const lastIndex = outcomes.length - 1;
-                    const startIndex = Math.max(0, index - 1);
+                    const startIndex = Math.max(0, index);
                     const endIndex = Math.min(lastIndex, startIndex + 99);
 
                     const dataRows = document.getElementById('dataRows');
@@ -77,9 +78,9 @@
                         row.appendChild(indexCell);
                         row.appendChild(valueCell);
 
-                        if (i === index - 1) {
+                        if (i === index) {
                             row.classList.add('red-table');
-                        } else if (i === index) {
+                        } else if (i === index + 1) {
                             row.classList.add('yellow-table');
                         } else {
                             row.classList.add('green-table');
