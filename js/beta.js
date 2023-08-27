@@ -31,7 +31,7 @@ fetch('js/outcomes.json')
     if (localStorage.getItem('spin') !== null) {
       currentOutcomeIndex = parseInt(localStorage.getItem('spin'));
       console.log('SPIN NUMBER: ', currentOutcomeIndex);
-      document.title = `JACKPOT: Spin : # ${currentOutcomeIndex}`;
+      document.title = `JACKPOT: Spin # ${currentOutcomeIndex}`;
     } else {
       currentOutcomeIndex = 0;
       localStorage.setItem('spin', currentOutcomeIndex.toString());
@@ -105,9 +105,10 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
-                    console.log('SPIN NUMBER: ', currentOutcomeIndex + 1);
-                    localStorage.setItem('spin', currentOutcomeIndex + 1);
-                    document.title = `JACKPOT: Spin : # ${currentOutcomeIndex + 1}`;
+
+                    console.log('SPIN NUMBER: ', currentOutcomeIndex);
+                    localStorage.setItem('spin', currentOutcomeIndex);
+                    document.title = `JACKPOT: Spin # ${currentOutcomeIndex}`;
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
