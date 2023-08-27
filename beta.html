@@ -6,6 +6,17 @@
     <link type="image/png" sizes="96x96" rel="icon" href="images/favicon.png">
     <!-- Add Bootstrap CSS link here -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .grey-table {
+            background-color: #d3d3d3;
+        }
+        .yellow-table {
+            background-color: #ffff99;
+        }
+        .green-table {
+            background-color: #aaffaa;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
@@ -13,7 +24,7 @@
             <div class="col-md-6">
                 <label for="numberInput">Enter Spin Number:</label>
                 <input type="number" id="numberInput" class="form-control">
-                <button class="btn btn-success mt-2" id="submitBtn">CHECK</button>
+                <button class="btn btn-success mt-2" id="submitBtn">CHECK JACKPOT</button>
             </div>
         </div>
         <div class="row mt-4">
@@ -35,16 +46,16 @@
 
     <script>
         document.getElementById('submitBtn').addEventListener('click', function() {
-            const index = document.getElementById('numberInput').value;
-            
+            const index = parseInt(document.getElementById('numberInput').value);
+
             // Add your fetch logic here
             fetch('js/outcomes.json')
                 .then(response => response.json())
                 .then(data => {
                     const outcomes = data;
                     const lastIndex = outcomes.length - 1;
-                    const startIndex = Math.max(0, lastIndex - 10);
-                    const endIndex = Math.min(lastIndex, startIndex + 50);
+                    const startIndex = Math.max(0, index - 1);
+                    const endIndex = Math.min(lastIndex, startIndex + 99);
 
                     const dataRows = document.getElementById('dataRows');
                     dataRows.innerHTML = ''; // Clear existing data
@@ -60,15 +71,18 @@
                         row.appendChild(indexCell);
                         row.appendChild(valueCell);
 
+                        if (i === index - 1) {
+                            row.classList.add('yellow-table');
+                        } else if (i === index) {
+                            row.classList.add('green-table');
+                        } else {
+                            row.classList.add('grey-table');
+                        }
+
                         dataRows.appendChild(row);
                     }
                 });
         });
     </script>
-
-    <!-- Add Bootstrap JS and jQuery scripts here -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
