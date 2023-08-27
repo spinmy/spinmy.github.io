@@ -62,6 +62,8 @@ class playGame extends Phaser.Scene {
 
     spinWheel() {
         if (this.canSpin) {
+            var audio = new Audio("css/ring.mp3");
+            audio.play();
             this.prizeText.setText("");
             var randomSpinCount = Phaser.Math.Between(2, 10);
             var totalDegrees = randomSpinCount * 360;
@@ -83,11 +85,7 @@ class playGame extends Phaser.Scene {
                 duration: rotationTime,
                 ease: "Cubic.easeOut",
                 callbackScope: this,
-                onStart: function () {
-                    this.playAudioAfterDelay("css/ring.mp3", 100);
-                },
                 onComplete: function (tween) {
-                    
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
@@ -96,12 +94,6 @@ class playGame extends Phaser.Scene {
                 }
             });
         }
-    }
-    playAudioAfterDelay(audioPath, delay) {
-        setTimeout(() => {
-            var audio = new Audio(audioPath);
-            audio.play();
-        }, delay);
     }
 }
 
