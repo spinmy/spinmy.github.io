@@ -7,14 +7,20 @@
     <!-- Add Bootstrap CSS link here -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .grey-table {
-            background-color: #d3d3d3;
+        .red-table {
+            background-color: #d50404;
+            font-size: 16px;
+            color: white;
         }
         .yellow-table {
-            background-color: #ffff99;
+            background-color: #ff0;
+            font-size: 25px;
+            font-weight: bold;
         }
         .green-table {
-            background-color: #aaffaa;
+            background-color: #11d711;
+            font-size: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -33,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>SPIN No:</th>
-                            <th>JACKPOT</th>
+                            <th>JACKPOT AMOUNT</th>
                         </tr>
                     </thead>
                     <tbody id="dataRows">
@@ -65,18 +71,18 @@
                         const indexCell = document.createElement('td');
                         const valueCell = document.createElement('td');
 
-                        indexCell.textContent = i;
+                        indexCell.textContent = "# " + i;
                         valueCell.textContent = outcomes[i];
 
                         row.appendChild(indexCell);
                         row.appendChild(valueCell);
 
                         if (i === index - 1) {
-                            row.classList.add('yellow-table');
+                            row.classList.add('red-table');
                         } else if (i === index) {
-                            row.classList.add('green-table');
+                            row.classList.add('yellow-table');
                         } else {
-                            row.classList.add('grey-table');
+                            row.classList.add('green-table');
                         }
 
                         dataRows.appendChild(row);
