@@ -84,7 +84,7 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onStart: function () {
-                    this.playAudioAfterDelay("css/ring.mp3", rotationTime - 5000);
+                    this.playAudioAfterDelay("css/ring.mp3", 100);
                 },
                 onComplete: function (tween) {
                     
@@ -92,6 +92,7 @@ class playGame extends Phaser.Scene {
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
                     this.canSpin = true;
+                    audio.pause();
                 }
             });
         }
