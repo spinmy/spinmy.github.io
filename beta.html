@@ -22,6 +22,29 @@
             font-size: 19px;
             font-weight: bold;
         }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .red-box {
+            background-color: #d50404;
+        }
+
+        .yellow-box {
+            background-color: #ff0;
+        }
+
+        .green-box {
+            background-color: #11d711;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +56,17 @@
                 <button class="btn btn-success mt-2" id="submitBtn">CHECK JACKPOT</button>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="box red-box">
+                LAST SPIN
+            </div>
+            <div class="box yellow-box">
+                NEXT SPIN
+            </div>
+            <div class="box green-box">
+                UPCOMING SPINS
+            </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-12">
