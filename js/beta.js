@@ -20,8 +20,23 @@ var gameOptions = {
         max: 13000
     }
 };
-var fixedOutcomes = [10, 10, 20, 10, 10, 20, 50, 100 , 500, 1000, 2000, 5000, 10000, 50000, 100000, 200000, 10, 10, 10, 10, 20, 10, 10, 10, 10, 20, 50, 100 , 500, 1000, 2000, 5000, 10000, 50000, 100000, 200000];
-var currentOutcomeIndex = 0;
+
+fetch('js/outcomes.json')
+  .then(response => response.json())
+  .then(data => {
+    const fixedOutcomes = data;
+    const totalOutcomes = fixedOutcomes.length;
+    if (localStorage.getItem('spin') !== null) {
+      currentOutcomeIndex = parseInt(localStorage.getItem('spin'));
+      console.log('SPIN NUMBER: ', currentOutcomeIndex);
+    } else {
+      currentOutcomeIndex = 0;
+      localStorage.setItem('spin', currentOutcomeIndex.toString());
+    }
+  })
+  .catch(error => {
+    console.error('Error loading outcomes:', error);
+  });
 
 window.onload = function () {
     var gameConfig = {
@@ -86,6 +101,7 @@ class playGame extends Phaser.Scene {
                 ease: "Cubic.easeOut",
                 callbackScope: this,
                 onComplete: function (tween) {
+                    localStorage.setItem('spin', currentOutcomeIndex + 1);
                     document.getElementById("pyro").style.display = "block";
                     var prize = gameOptions.slicePrizes[targetSlice];
                     this.prizeText.setText("₹ " + prize.toLocaleString() + " JACKPOT!!!");
